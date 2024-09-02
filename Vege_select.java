@@ -33,7 +33,7 @@ public class Vege_select
 			{
 				j++;
 				driver.findElements(By.xpath("//div[@class = 'product-action']")).get(i).click();
-				if(j>2)
+				if(j>vege.length)
 					break;
 			}
 		}
