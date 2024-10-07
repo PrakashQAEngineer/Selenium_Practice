@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Selenium_scope_miscelenious 
 {
-	public static void main(String args[])
+	public static void main(String args[]) throws InterruptedException
 	{
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
@@ -43,7 +43,7 @@ public class Selenium_scope_miscelenious
 			System.out.println("The links on the footer are: "+foot_link);
 		}
 		
-		public static void footercol(WebDriver driver)
+		public static void footercol(WebDriver driver) throws InterruptedException
 		{
 			// to find the links for the first column only on the footer
 			WebElement footer = driver.findElement(By.xpath("//div[@id = 'gf-BIG']"));
@@ -56,35 +56,32 @@ public class Selenium_scope_miscelenious
 			 
 			 for(int i=0;i<foo_link;i++)
 			 {
+				 // this will open links on every new tab.
 				 String newtab = Keys.chord(Keys.CONTROL,Keys.ENTER);
 				 foo_col.findElements(By.tagName("a")).get(i).sendKeys(newtab); 
-			 }
-			 
-			 //now move to the every tab and get the text of title of that website
-			 
-			 Set<String> wintab = driver.getWindowHandles();
-			 java.util.Iterator<String> it = wintab.iterator();
-			 String parent =it.next();// this is the main page
-			 driver.switchTo().window(parent); // we are in the main parent page
-			 
-			 String parent_title = driver.getTitle();
-			 System.out.println("The main parent page title is: "+parent_title);
-			 
-			 String child1 = it.next();
-			 driver.switchTo().window(child1);
-			 String child1_title = driver.getTitle();
-			 System.out.println(child1_title);
-			 
-			 String child2 = it.next();
-			 driver.switchTo().window(child2);
-			 String child2_title = driver.getTitle();
-			 System.out.println(child2_title);
+				 
+				 Thread.sleep(3000L);
+			 }// this loop will open all tab	 
+				 Set <String> win = driver.getWindowHandles();
+				   java.util.Iterator<String> it = win.iterator();
+				   
+				  // System.out.print(it);
+				   while(it.hasNext()) // this loop will check if we have the window data on next or not
+				   {
+					   String titl = driver.switchTo().window(it.next()).getTitle();
+					   System.out.println(titl);
+					   
+				   }
+				 
 			 
 		}
- 	
-	
+		
+		
+		
+		
+}
 	
 	
 	
 
-}
+
