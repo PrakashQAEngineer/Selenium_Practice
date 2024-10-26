@@ -1,7 +1,11 @@
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,8 +39,22 @@ public class Links_Count
          {
         	 String tex = ww.get(i).getText();
         	 System.out.println(tex);
+        	 
+        	 String clktab = Keys.chord(Keys.CONTROL, Keys.ENTER);
+        	 ww.get(i).sendKeys(clktab);
          }
+         
+        Set<String> win = driver.getWindowHandles();
+           java.util.Iterator<String> it = win.iterator();  
+             while(it.hasNext())
+             {
+            	 driver.switchTo().window(it.next());
+            	 System.out.println(driver.getTitle());
+            	 System.out.println("****************************************");
+            	
+             }
 	}
+	
 	
 
 }
