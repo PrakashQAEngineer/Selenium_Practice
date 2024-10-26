@@ -18,6 +18,24 @@ public class Links_Count
           List<WebElement> wb1 = driver.findElements(By.tagName("a"));
           System.out.println(wb1.size());
 		
+          // links count on flipkart for the footer section
+          
+          WebElement foot = driver.findElement(By.xpath("//div[@class = '_1ZMrY_']"));
+          List <WebElement> foota = foot.findElements(By.tagName("a"));
+          System.out.println(foota.size());
+          for(int i=0; i<foota.size();i++)
+          {
+        	  String te = foota.get(i).getText();
+        	  System.out.println(te);
+          }
+          
+         WebElement fooot = driver.findElement(By.xpath("//div[@class = '_1ZMrY_']/div"));
+         List<WebElement> ww= fooot.findElements(By.tagName("a"));
+         for(int i=0;i<ww.size();i++)
+         {
+        	 String tex = ww.get(i).getText();
+        	 System.out.println(tex);
+         }
 	}
 	
 
