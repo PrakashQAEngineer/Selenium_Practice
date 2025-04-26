@@ -1,64 +1,49 @@
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
-public class Product_Details 
+public class green_kart 
 {
 	public static void main(String args[]) throws InterruptedException
 	{
-       WebDriver driver = new ChromeDriver();
-       driver.manage().window().maximize();
-       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-       
-       //Open ing of the Mundo Trip
-       driver.get("https://www.mundotrip.com/en-us");
-       
-       //click on the vacations
-       driver.findElement(By.xpath("//a[@rel = '#holidays']")).click();
-       
-       //select Dubai from the dropdown
-       Thread.sleep(3000);
-       WebElement wb1 = driver.findElement(By.xpath("//select[@id = 'destinationHoliday']"));
-       
-       Select sc = new Select(wb1);
-       sc.selectByVisibleText("Dubai");
-       
-       //click on the Chat Icon
-       Thread.sleep(3000);
-      driver.findElement(By.className("cc-chat-bubble")).click();
-      
-      //Month Selection
-      WebElement wb2 = driver.findElement(By.xpath("//select[@id = 'monthDropdown']"));
-      Select scc = new Select(wb2);
-      scc.selectByVisibleText("June'25");
-      
-      //select on Search Button
-      driver.findElement(By.id("searchHoliday")).click();
-      
-   // selecting the deal "Discover the Magic of Dubai & Abu Dhabi: A Luxury Tour Experience"
-      
-       List<WebElement> wb11 = driver.findElements(By.className("tour-detail"));
-       System.out.println(wb1.getSize());
-       for(int i=0; i<wb11.size()-1;i++)
-       {
-    	   System.out.println("value of i: "+i);
-    	   String hol = wb11.get(i).getText();
-    	   if(hol.contains("Discover the Magic of Dubai & Abu Dhabi: A Luxury Tour Experience"))
-    	   {
-    		   driver.findElements(By.xpath("//button[@type = 'submit']")).get(i).click();
-    		   System.out.println(hol);
-    		   
-    	   }
-    	  // System.out.println(hol);
-    	   
-       }
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		String[] veg_sel = {"Cauliflower", "Potato", "Musk Melon"};
+		int j=0;
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		List <WebElement> wb1 = driver.findElements(By.xpath("//h4[@class = 'product-name']"));
+		
+		//System.out.println(wb1.size());
+		for(int i=0;i<wb1.size();i++)
+		{
+			String veg = wb1.get(i).getText();
+			System.out.println(veg);
+			
+			String new_veg = veg.split("-")[0].trim();
+			System.out.println(new_veg);
+			
+			// converting array into array list
+			List<String> al = Arrays.asList(veg_sel);
+			
+			  if(al.contains(new_veg))
+			{
+				  j++;
+				 // System.out.println("************************************************");
+				  driver.findElements(By.xpath("//div[@class = 'product-action']/button")).get(i).click();
+				  //Thread.sleep(2000);
+				  if(j==3)
+					  break;
+					  
+				  
+			}
+		}
 	}
 
-	
-	
 }
