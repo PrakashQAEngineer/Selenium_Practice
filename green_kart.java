@@ -13,7 +13,7 @@ public class green_kart
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		
+		String[] veg_sel = {"Cauliflower", "Potato", "Musk Melon"};
 		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
 		List <WebElement> wb1 = driver.findElements(By.xpath("//h4[@class = 'product-name']"));
 		
@@ -26,7 +26,8 @@ public class green_kart
 			String new_veg = veg.split("-")[0].trim();
 			System.out.println(new_veg);
 			
-			if(new_veg.equalsIgnoreCase("Potato"))
+			// converting arry into array list
+			
 			{
 				driver.findElements(By.xpath("//button[text() = 'ADD TO CART']")).get(i).click();
 			}
