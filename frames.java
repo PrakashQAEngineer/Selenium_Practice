@@ -24,6 +24,7 @@ public class frames
 		WebElement target = driver.findElement(By.xpath("//div[@id = 'droppable']"));
 		
 		act.dragAndDrop(source, target).build().perform();
+		driver.switchTo().defaultContent(); // to move to the default selection for automsation
 	
 	}
 
