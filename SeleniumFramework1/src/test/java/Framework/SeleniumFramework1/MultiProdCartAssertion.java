@@ -7,10 +7,12 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -86,8 +88,88 @@ public class MultiProdCartAssertion
 			System.out.println("done");
 		}*/
 		
+		//Click on the checkout button
+		  //Thread.sleep(10000); 
+		  System.out.println("button");
+		  
+		 // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		// Scroll into view using JavaScript before clicking
+
+		/*WebElement checkoutButton = wait.until(dvd -> {
+
+		    WebElement btn = driver.findElement(By.cssSelector(".totalRow button"));
+
+		    ((JavascriptExecutor) dvd).executeScript("arguments[0].scrollIntoView(true);", btn);
+
+		    return (btn.isDisplayed() && btn.isEnabled()) ? btn : null;
+
+		});
+
+
+
+		checkoutButton.click();*/
+		  
+		  JavascriptExecutor js = (JavascriptExecutor) driver;
+		  js.executeScript("window.scrollTo(1174, document.body.scrollHeight);");
+		  
+	 WebDriverWait ctbtn = new WebDriverWait(driver,Duration.ofSeconds(6));
+		   WebElement clk = ctbtn.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".totalRow button")));
+		   clk.click();
+		 
+		 // Payment Method
+		   
+		   //selecting the Expiry date momth
+		   WebElement dr1 = driver.findElement(By.xpath("//select[contains(@class,'input')][1]"));
+		    Select sc = new Select(dr1);
+		    sc.selectByContainsVisibleText("07");
+		    
+		    //selecting the expiry year
+		    
+		    WebElement dr2 = driver.findElement(By.xpath("//select[contains(@class,'input')][2]"));
+		    Select sc2 = new Select(dr2);
+		    sc2.selectByContainsVisibleText("29");
+		    
+		    //cvv selection
+		   
+		    WebDriverWait cvv = new WebDriverWait(driver,Duration.ofSeconds(6));
+		    cvv.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text() = 'CVV Code ']/following-sibling::input[1]")));
+		    
+		    driver.findElement(By.xpath("//div[text() = 'CVV Code ']/following-sibling::input[1]")).sendKeys("456");
+		    
+		    //name on Card
+		    driver.findElement(By.xpath("//div[text()='Name on Card ']/following-sibling::input")).sendKeys("Prakash Singh");
+		    
+		    //Apply Coupon
+		    driver.findElement(By.xpath("//div[text()='Apply Coupon ']/following-sibling::input")).sendKeys("SparshYog");
+		    
+		    //shipping Information with Country Selection
 		
-		
+		    WebDriverWait cnt = new WebDriverWait(driver,Duration.ofSeconds(5));
+		    cnt.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder = 'Select Country']")));
+		  driver.findElement(By.xpath("//input[@placeholder = 'Select Country']")).sendKeys("Ind");
+		   List<WebElement> country =  driver.findElements(By.xpath("//span[@class = 'ng-star-inserted']"));
+
+		   for(int i=0;i<country.size();i++)
+		   {
+			   String ct_celect = country.get(i).getText();
+			   System.out.println(ct_celect);
+			   
+			   if(ct_celect.equalsIgnoreCase("India"))
+			   {
+				   country.get(i).click();
+				   break;
+			   }
+		   }
+		   
+		   //place order button
+		   driver.findElement(By.xpath("//a[text() = 'Place Order ']")).click();
+		   
+		   //assertion on Final Page
+String confirm = driver.findElement(By.cssSelector(".hero-primary")).getText();
+     
+     Assert.assertEquals(confirm, "THANKYOU FOR THE ORDER.");
+System.out.println(confirm);
 	}
 
 }
