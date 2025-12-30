@@ -79,7 +79,7 @@ public class LocatorPractice_Basic {
 		 Thread.sleep(2000);
 		 		 
 		 String str = driver.findElement(By.xpath("//div[@class = 'login-container'] //h2")).getText();
-		 System.out.println(str);
+		 System.out.println("test"+str);
 		 
 		 Assert.assertEquals(str, "Hello "+userName+",");
 		 String str2 = driver.findElement(By.xpath("//div[@class = 'login-container'] //h1")).getText();
@@ -92,6 +92,18 @@ public class LocatorPractice_Basic {
 		 
 		 //Logout Button
 		 driver.findElement(By.xpath("//button[text() = 'Log Out']")).click();
+		 
+		 //new traverse parent to sibling
+		 
+		 //driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+		 
+		 driver.navigate().to("https://rahulshettyacademy.com/AutomationPractice/");
+		// Thread.sleep(3000);
+		 String getbt = driver.findElement(By.xpath("//header/div/button[1]/following-sibling::button[1]")).getText();  ///practice
+		 System.out.println(getbt);
+		 
+		 
+		 
 	}
 
 }
