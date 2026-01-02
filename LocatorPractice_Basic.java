@@ -102,8 +102,11 @@ public class LocatorPractice_Basic {
 		 String getbt = driver.findElement(By.xpath("//header/div/button[1]/following-sibling::button[1]")).getText();  ///practice
 		 System.out.println(getbt);
 		 
+		 Thread.sleep(3000);
 		 
-		 
+       //child to parent traverse
+		 String btn = driver.findElement(By.xpath("//header/div/button[2]/parent::div")).getText();
+		 System.out.println("Parent: "+btn);
 	}
 
 }
